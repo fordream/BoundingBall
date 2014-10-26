@@ -36,8 +36,14 @@
     <ClCompile Include="..\Classes\Framework\Layer.cpp">
       <Filter>Classes\Framework</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\Board.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
     <ClCompile Include="..\Classes\Ball.cpp">
       <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Framework\b2\ContactListener.cpp">
+      <Filter>Classes\Framework\b2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -62,8 +68,14 @@
     <ClInclude Include="..\Classes\Framework\Layer.h">
       <Filter>Classes\Framework</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\Board.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
     <ClInclude Include="..\Classes\Ball.h">
       <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Framework\b2\ContactListener.h">
+      <Filter>Classes\Framework\b2</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

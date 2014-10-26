@@ -8,6 +8,7 @@
 #include "../Common/Constants.h"
 USING_NS_CC;
 
+class ContactListener;
 class b2Layer : public Layer
 {
 public:

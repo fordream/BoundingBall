@@ -1,5 +1,5 @@
 #include "b2Layer.h"
-
+#include "ContactListener.h"
 b2Layer::b2Layer() :_pb2World(NULL)
 {
 
@@ -49,6 +49,9 @@ void b2Layer::initb2World()
 	flags += b2Draw::e_centerOfMassBit;
 	_pDebugDraw->SetFlags(flags);
 	_pb2World->SetDebugDraw(_pDebugDraw);
+
+	ContactListener* pContactListener = new ContactListener(this);
+	_pb2World->SetContactListener(pContactListener);
 
 }
 

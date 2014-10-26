@@ -24,29 +24,39 @@ Ball* Ball::createWithPhysicsWorld(const char* pFileName, b2World* pWorld)
 	return NULL;
 }
 
-bool Ball::initWithBody(const char *pszFilename, b2World* pWorld)
+bool Ball::initWithBody(const char* pFile, b2World *pWorld)
 {
-	if (!CCSprite::initWithFile(pszFilename))
+	if (!CCSprite::initWithFile(pFile))
 		return false;
 
 	b2BodyDef bodyDef;
-	bodyDef.type = b2_kinematicBody;
+	bodyDef.type = b2_dynamicBody;
 
 	_pBody = pWorld->CreateBody(&bodyDef);
-
-	b2EdgeShape shape;
-	b2Vec2 v1(-this->getContentSize().width / 2 / Constants::PTM_RATIO, -this->getContentSize().height / 2 / Constants::PTM_RATIO);
-	b2Vec2 v2(this->getContentSize().width / 2 / Constants::PTM_RATIO, -this->getContentSize().height / 2 / Constants::PTM_RATIO);
-	b2Vec2 v3(10.0f, this->getContentSize().height / 2 / Constants::PTM_RATIO);
-	shape.Set(v1, v2);
-	shape.m_hasVertex3 = true;
-	shape.m_vertex3 = v3;
+	b2CircleShape shape;
+	shape.m_radius = this->getContentSize().width / 2/Constants::PTM_RATIO;
 
 	b2FixtureDef fixtureDef;
+	fixtureDef.density = 0.0f;
+	fixtureDef.friction = 0.0f;
+	fixtureDef.restitution = 1.0f;
 	fixtureDef.shape = &shape;
 	_pBody->CreateFixture(&fixtureDef);
-	_pBody->SetUserData(this);
-	
+
+	scheduleUpdate();
+
 	return true;
+}
+
+void Ball::update(float delta)
+{
+	CCSprite::update(delta);
+	this->setPosition(ccp(_pBody->GetPosition().x*Constants::PTM_RATIO, _pBody->GetPosition().y*Constants::PTM_RATIO));
+	this->setRotation((-1)*CC_RADIANS_TO_DEGREES(_pBody->GetAngle()));
+}
+
+void Ball::setBallPosition(CCPoint position)
+{
+	_pBody->SetTransform(b2Vec2(position.x / Constants::PTM_RATIO, position.y / Constants::PTM_RATIO), _pBody->GetAngle());
 }
 
